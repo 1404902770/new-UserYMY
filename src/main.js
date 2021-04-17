@@ -144,7 +144,8 @@ axios.interceptors.response.use(function (response) {
 		if (response.data.code == 128 || response.data.code == 101 || response.data.code == -2 || response.data.code == -1) {
 			localStorage.clear()
 			router.push('/')
-			elementUi.Message.error('请重新登录!')
+			ws.onclose()
+			elementUi.Message.error('该账号已在其他设备登录，请重新登录!')
 			closeLoading()
 			return false
 			// 服务器失败
@@ -336,6 +337,7 @@ Vue.prototype.delObject = (num) => {
 
 // webSocket
 var timer = '';
+var gettimer = '';
 var ws = ''
 Vue.prototype.socket = () => {
 	// var uid = $api.getStorage('uid');
@@ -343,7 +345,8 @@ Vue.prototype.socket = () => {
 	// 	return false;
 	// }
 	let username = localStorage.getItem("username");
-	let uid = localStorage.getItem(username + 'uid');
+	var uid = localStorage.getItem(username + 'uid');
+
 	// var uid = localStorage.getItem('uid')
 	ws = new ReconnectingWebSocket('wss://esb.yumaoyou.cn:7250');
 	ws.debug = false; // 此实例是否应该记录调试消息
@@ -359,10 +362,18 @@ Vue.prototype.socket = () => {
 		// console.log(JSON.stringify(event));
 		// console.log(ws.readyState);
 		if (ws.readyState == 1) {  // 连接成功建立，可以进行通信
-			if (uid > 0) {
-				ws.send('a_web' + uid + '_');
-				timer = setInterval(() => { ws.send('a_web' + uid + '_') }, 50000);
-			}
+			// if (uid > 0) {
+			clearInterval(timer);
+			ws.send('a_web' + uid + '_');
+			timer = setInterval(() => { ws.send('a_web' + uid + '_') }, 50000);
+			// }
+
+			// let getout = localStorage.getItem('getout')
+			// if (getout == 'getout') {
+			// 	uid = ''
+			// 	ws.onclose()
+			// 	// clearInterval(timer);
+			// }
 
 		} else if (ws.readyState == 2) {   // 连接正在进行关闭握手，即将关闭
 			// console.log(ws.readyState);
@@ -387,10 +398,20 @@ Vue.prototype.socket = () => {
 	}
 	ws.onclose = function (event) {
 		// console.log(JSON.stringify(event));
-		if (event.isTrusted == true) {
-			clearInterval(timer);
-		}
+		// if (event.isTrusted == true) {
+		// 	clearInterval(timer);
+		// } else if (event.isTrusted == false) {
+
+		// }
+		ws.close()
+		clearInterval(timer)
+		// console.log('断开连接')
+		// console.log(ws.readyState)
 	}
+}
+
+Vue.prototype.closeSocket = () => {
+	ws.onclose()
 }
 
 

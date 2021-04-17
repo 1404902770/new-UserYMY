@@ -272,6 +272,8 @@ export default {
         });
       }, 0);
 
+      var color = ['#33FFFF', '#339933', '#33CCFF', '#33CCCC', '#3399FF', '#99FFCC', '#CCFF66', '#CC99CC', '#CC9900', '#CC6666', '#CC66FF', '#FF9933']
+
       this.zhexian.setOption({
         tooltip: {
           trigger: 'axis',
@@ -336,6 +338,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[0] : "",
             type: "line",
             smooth: true,
+            color: color[0], //图例的颜色
+            lineStyle: {
+              color: color[0] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -348,6 +354,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[1] : "",
             smooth: true,
             type: "line",
+            color: color[1], //图例的颜色
+            lineStyle: {
+              color: color[1] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -360,6 +370,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[2] : "",
             smooth: true,
             type: "line",
+            color: color[2], //图例的颜色
+            lineStyle: {
+              color: color[2] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -372,6 +386,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[3] : "",
             smooth: true,
             type: "line",
+            color: color[3], //图例的颜色
+            lineStyle: {
+              color: color[3] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -384,6 +402,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[4] : "",
             smooth: true,
             type: "line",
+            color: color[4], //图例的颜色
+            lineStyle: {
+              color: color[4] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -396,6 +418,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[5] : "",
             smooth: true,
             type: "line",
+            color: color[5], //图例的颜色
+            lineStyle: {
+              color: color[5] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -408,6 +434,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[6] : "",
             smooth: true,
             type: "line",
+            color: color[6], //图例的颜色
+            lineStyle: {
+              color: color[6] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -420,6 +450,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[7] : "",
             smooth: true,
             type: "line",
+            color: color[7], //图例的颜色
+            lineStyle: {
+              color: color[7] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -432,6 +466,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[8] : "",
             smooth: true,
             type: "line",
+            color: color[8], //图例的颜色
+            lineStyle: {
+              color: color[8] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -444,6 +482,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[9] : "",
             smooth: true,
             type: "line",
+            color: color[9], //图例的颜色
+            lineStyle: {
+              color: color[9] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -456,6 +498,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[10] : "",
             smooth: true,
             type: "line",
+            color: color[10], //图例的颜色
+            lineStyle: {
+              color: color[10] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,
@@ -468,6 +514,10 @@ export default {
             name: _this.manyLine.length != 0 ? _this.lineNameList[11] : "",
             smooth: true,
             type: "line",
+            color: color[11], //图例的颜色
+            lineStyle: {
+              color: color[11] //改变折线颜色
+            },
             label: {
               normal: {
                 show: true,

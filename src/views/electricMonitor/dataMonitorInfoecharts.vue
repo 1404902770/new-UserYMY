@@ -6,7 +6,7 @@
         <el-breadcrumb separator-class="el-icon-arrow-right">
           <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>用电监测</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/dataMonitor' }">线路检测</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/dataMonitor' }">线路监测</el-breadcrumb-item>
           <el-breadcrumb-item>电路详情</el-breadcrumb-item>
         </el-breadcrumb>
 
@@ -166,7 +166,7 @@ export default {
     count(newCount, oldCount) {
       // console.log(newCount, oldCount)
       if (newCount.type == "startkuozhan") {
-        if (newCount.nid == this.nid) {
+        if (newCount.nid == this.nid && newCount.mid == this.fitem.aa) {
           if (newCount.dan) {
             this.num = 0
 
@@ -1349,7 +1349,7 @@ export default {
     this.timer = setInterval(() => {
       this.num++
       if (this.listdianya.length < 20 && this.listdianya.length != 0) {
-        if (this.num == 5) {
+        if (this.num == 12) {
           // console.log('')
           this.readEhars()
           this.num = 0

@@ -776,7 +776,7 @@ export default {
     this.getList(1);
 
     // this.geteqList(1);
-  }
+  },
 };
 </script>
   

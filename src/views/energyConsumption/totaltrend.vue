@@ -1273,6 +1273,7 @@ export default {
       picday: [],
       // 月总能耗数据图
       picmonth: [],
+      picmonthdate: [],
       // 年总能耗数据图
       picyear: [],
       picyeartitle: [],
@@ -1367,6 +1368,19 @@ export default {
           this.monthtableData.push(res.data.data);
           this.monthtableData[0].totalnum = res.data.sum
           this.picmonth = res.data.arrlist
+
+          this.picmonthdate = Object.keys(res.data.data)
+          this.picmonthdate.pop()
+          for (let i = 0; i < this.picmonthdate.length; i++) {
+            for (let j = i + 1; j < this.picmonthdate.length; j++) {
+              if (this.picmonthdate[i] > this.picmonthdate[j]) {
+                let temp = this.picmonthdate[i]
+                this.picmonthdate[i] = this.picmonthdate[j]
+                this.picmonthdate[j] = temp
+              }
+            }
+            this.picmonthdate[i] = this.picmonthdate[i] + '号'
+          }
 
           this.getStudentmonth()
         }
@@ -1586,7 +1600,7 @@ export default {
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: timedata,
+            data: this.picmonthdate,
             // splitLine: {
             //   show: true,
             //   lineStyle: {

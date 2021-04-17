@@ -15,6 +15,14 @@
       id="auto"
       src=""
     ></audio>
+
+    <!-- <input
+      type="button"
+      value="点击播放"
+      id='play'
+      hidden
+      @click="playSound('/static/mp3/baojing.mp3')"
+    > -->
     <router-view />
     <!-- </keep-alive> -->
   </div>
@@ -29,27 +37,41 @@ export default {
     count(newCount, oldCount) {
       // console.log(newCount, oldCount)
       if (newCount.type == "jing") {
-        this.playSound('http://data.huiyi8.com/2017/gha/03/17/1702.mp3')
+        if (newCount.data.desc == '过压报警' || newCount.data.desc == '电流报警' || newCount.data.desc == '温度报警' || newCount.data.desc == '漏电流报警' || newCount.data.desc == '分机报警') {
+          this.playSound('/static/mp3/baojing.mp3')
+          window.onclick = this.playSound('/static/mp3/baojing.mp3')
+        } else {
+          this.playSound('http://data.huiyi8.com/2017/gha/03/17/1702.mp3')
+          window.onclick = this.playSound('http://data.huiyi8.com/2017/gha/03/17/1702.mp3')
+        }
 
         this.$notify.warning({
           title:
-            newCount.desc +
+            newCount.data.desc +
             "-" +
-            new Date(newCount.time * 1000).Format("yy-MM-dd hh:mm:ss"),
+            new Date(newCount.data.time * 1000).Format("yy-MM-dd hh:mm:ss"),
           type: "warning",
-          duration: 0,
+          duration: 3600000,
           message:
             ("i",
               { style: "color: teal" },
               "[" +
-              this.getString1(this.hexCharCodeToStr(newCount.nid)) +
-              newCount.mzname +
+              this.getString1(this.hexCharCodeToStr(newCount.data.nid)) +
+              newCount.data.n_name +
               "]" +
               " - 线路" +
-              newCount.aa +
+              parseInt(newCount.data.mid, 16) + '-' + newCount.data.name +
               " : " +
-              newCount.beizhu)
+              newCount.data.beizhu)
         });
+
+        let a = document.getElementsByClassName('el-notification')
+        for (let i = 0; i < a.length; i++) {
+          if (newCount.data.desc == '过压报警' || newCount.data.desc == '电流报警' || newCount.data.desc == '温度报警' || newCount.data.desc == '漏电流报警' || newCount.data.desc == '分机报警') {
+            a[i].style.backgroundColor = '#CCFFFF'
+          }
+          a[i].style.padding = '5px 10px'
+        }
       }
     }
   },
@@ -70,8 +92,31 @@ export default {
   },
 
   created() {
-    this.socket();
+    let username = localStorage.getItem("username");
+    let uid = localStorage.getItem(username + 'uid');
+    if (uid || uid > 0) {
+      this.socket();
+    }
   },
+
+  mounted() {
+    // setInterval(() => {
+    //   this.$store.commit('setsocketData', {
+    //     type: 'jing',
+    //     data: {
+    //       type: 'jing',
+    //       nid: '34474c3430354c4130365157', // 设备16进制
+    //       mzname: '牛羊肉—邢玉芬副食', // 设备名称
+    //       jianzhu: '牛羊肉片', // 线路名称
+    //       aa: '08', // 线路
+    //       desc: '电流预警', // 报警类型
+    //       beizhu: '当前电流处于过流报警值上,当前电流为:81.176A,所设电流预警值为:50A', // 报警提示文字
+    //       time: '1600766564' // 时间
+    //     }
+    //   })
+    // }, 6000)
+    this.playSound('')
+  }
 };
 </script>
 <style lang="less">
@@ -103,6 +148,18 @@ video {
   left: 0;
   object-fit: fill;
 }
+
+.el-notification__group /deep/ .el-notification__title {
+  font-size: 14px;
+}
+.el-notification__group /deep/ .notification__content {
+  font-size: 12px;
+}
+.el-notification__group /deep/.el-icon-close {
+  top: 1px;
+  right: 9px;
+}
+
 .el-main {
   .el-header {
     background: #22366d;
@@ -163,7 +220,7 @@ video {
 }
 
 .el-picker-panel,
-.el-popper /deep/ .el-select-dropdown__list {
+.el-select-dropdown__list {
   background: #27428e !important;
   .el-select-dropdown__item,
   .el-picker-panel__icon-btn {

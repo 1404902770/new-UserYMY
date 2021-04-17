@@ -487,7 +487,7 @@
             show-overflow-tooltip
             label="00时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -497,7 +497,7 @@
             show-overflow-tooltip
             label="01时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -507,7 +507,7 @@
             show-overflow-tooltip
             label="02时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -517,7 +517,7 @@
             show-overflow-tooltip
             label="03时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -527,7 +527,7 @@
             show-overflow-tooltip
             label="04时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -537,7 +537,7 @@
             show-overflow-tooltip
             label="05时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -547,7 +547,7 @@
             show-overflow-tooltip
             label="06时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -557,7 +557,7 @@
             show-overflow-tooltip
             label="07时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <!-- <el-table-column
@@ -578,7 +578,7 @@
             show-overflow-tooltip
             label="08时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -588,7 +588,7 @@
             show-overflow-tooltip
             label="09时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -598,7 +598,7 @@
             show-overflow-tooltip
             label="10时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -608,7 +608,7 @@
             show-overflow-tooltip
             label="11时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -618,7 +618,7 @@
             show-overflow-tooltip
             label="12时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -628,7 +628,7 @@
             show-overflow-tooltip
             label="13时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -638,7 +638,7 @@
             show-overflow-tooltip
             label="14时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -648,7 +648,7 @@
             show-overflow-tooltip
             label="15时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -658,7 +658,7 @@
             show-overflow-tooltip
             label="16时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -668,7 +668,7 @@
             show-overflow-tooltip
             label="17时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -678,7 +678,7 @@
             show-overflow-tooltip
             label="18时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -688,7 +688,7 @@
             show-overflow-tooltip
             label="19时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -698,7 +698,7 @@
             show-overflow-tooltip
             label="20时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -708,7 +708,7 @@
             show-overflow-tooltip
             label="21时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -718,7 +718,7 @@
             show-overflow-tooltip
             label="22时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -728,7 +728,7 @@
             show-overflow-tooltip
             label="23时"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
 
           <el-table-column
@@ -737,7 +737,7 @@
             show-overflow-tooltip
             label="总计"
             align="center"
-            min-width="90"
+            min-width="120"
           ></el-table-column>
         </el-table>
 
@@ -1536,7 +1536,7 @@ export default {
           dt: new Date(this.monthform.dateof).getTime() / 1000, //日期
           uid: uid,        //用户id
           // uid: localStorage.getItem('uid'),        //用户id
-          nid: this.dayform.region, //电箱号
+          nid: this.monthform.region, //电箱号
           type: "month",      //day 日报 week 周报 month 月报 year 年报
           start: this.monthform.starttime.split(':')[0],        //开始时间  当type 为 day 时 可选
           end: this.monthform.endtime.split(':')[0]
@@ -1573,7 +1573,7 @@ export default {
           dt: new Date(this.yearform.dateof).getTime() / 1000, //日期
           uid: uid,        //用户id
           // uid: localStorage.getItem('uid'),        //用户id
-          nid: this.dayform.region, //电箱号
+          nid: this.yearform.region, //电箱号
           type: "year",      //day 日报 week 周报 month 月报 year 年报
           start: this.yearform.starttime.split(':')[0],        //开始时间  当type 为 day 时 可选
           end: this.yearform.endtime.split(':')[0]
@@ -2120,7 +2120,7 @@ export default {
     },
   },
   mounted() {
-    this.tableHeight1 = window.innerHeight - this.$refs.table1.$el.offsetTop - 69;
+    this.tableHeight1 = window.innerHeight - this.$refs.table1.$el.offsetTop - 80;
     // this.tableHeight2 = window.innerHeight - this.$refs.table2.$el.offsetTop - 69;
     // this.tableHeight3 = window.innerHeight - this.$refs.table3.$el.offsetTop - 69;
   },

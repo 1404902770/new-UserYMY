@@ -168,7 +168,7 @@
             <el-table-column
               label="最大值"
               align="center"
-              min-width="60"
+              min-width="80"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -187,7 +187,7 @@
             <el-table-column
               label="时间"
               align="center"
-              min-width="100"
+              min-width="120"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -206,7 +206,7 @@
             <el-table-column
               label="最小值"
               align="center"
-              min-width="60"
+              min-width="80"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -225,7 +225,7 @@
             <el-table-column
               label="时间"
               align="center"
-              min-width="100"
+              min-width="120"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -252,7 +252,7 @@
             <el-table-column
               label="最大值"
               align="center"
-              min-width="60"
+              min-width="80"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -263,7 +263,7 @@
             <el-table-column
               label="时间"
               align="center"
-              min-width="100"
+              min-width="120"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -274,7 +274,7 @@
             <el-table-column
               label="最小值"
               align="center"
-              min-width="60"
+              min-width="80"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -285,7 +285,7 @@
             <el-table-column
               label="时间"
               align="center"
-              min-width="100"
+              min-width="120"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -304,7 +304,7 @@
             <el-table-column
               label="最大值"
               align="center"
-              min-width="60"
+              min-width="80"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -315,7 +315,7 @@
             <el-table-column
               label="时间"
               align="center"
-              min-width="100"
+              min-width="120"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -326,7 +326,7 @@
             <el-table-column
               label="最小值"
               align="center"
-              min-width="60"
+              min-width="80"
               show-overflow-tooltip
             >
               <template slot-scope="scope">
@@ -337,7 +337,7 @@
             <el-table-column
               label="时间"
               align="center"
-              min-width="100"
+              min-width="120"
               show-overflow-tooltip
             >
               <template slot-scope="scope">

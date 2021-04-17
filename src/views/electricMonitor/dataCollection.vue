@@ -1002,6 +1002,12 @@ export default {
     text-align: center;
     padding: 0;
     height: 100%;
+    .el-table /deep/ .cell {
+      color: #ccc;
+      background-color: transparent;
+      // background-color: rgba(0, 0, 0, 0.06) !important;
+    }
+
     .echarts {
       width: 100%;
       #echart {

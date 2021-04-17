@@ -499,6 +499,9 @@ export default {
         this.$router.push({
           path: "/"
         });
+        // localStorage.setItem('getout', 'getout')
+        // this.socket();
+        this.closeSocket()
       }
     }
   },
@@ -657,6 +660,7 @@ export default {
     }
     .el-main /deep/ .el-table--enable-row-transition .el-table__body td,
     .el-table .cell {
+      color: #ccc;
       background-color: transparent;
       background-color: rgba(0, 0, 0, 0.06) !important;
     }
@@ -675,6 +679,7 @@ export default {
 
     .el-main /deep/.el-table td,
     .el-table th.is-leaf {
+      color: black;
       border-bottom: 1px solid #5b93ff !important;
     }
 
@@ -689,7 +694,7 @@ export default {
       border-right: 1px solid #5b93ff;
     }
 
-    .el-main /deep/ .el-table__row {
+    .el-table__row {
       color: #ccc;
       // background-color: rgba(0, 0, 0, 0.06) !important;
     }

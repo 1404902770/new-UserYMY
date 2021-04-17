@@ -85,7 +85,7 @@
           <el-table-column
             prop="xian"
             show-overflow-tooltip
-            label="线径"
+            label="线径(m²)"
             align="center"
             min-width="90"
           ></el-table-column>

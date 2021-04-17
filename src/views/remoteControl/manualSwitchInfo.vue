@@ -240,7 +240,7 @@ export default {
           // "Apptoken": localStorage.getItem('token')
         },
         method: 'post',
-        url: this.esb + "/setApn/getManderNum",
+        url: this.esb + "/getManderNum",
         data: {
           data: {
             uid: uid, //用户id
@@ -259,9 +259,20 @@ export default {
         }
       }).then(res => {
         // console.log(res)
-        if (res.data.code == 110) {
+        if (res.data.code == 200) {
+          this.$message({
+            showClose: true,
+            message: '发送成功,请稍等……',
+            type: 'success'
+          });
+        } else if (res.data.code == 100) {
           clearInterval(this.Interval);
-          this.$message.warning("设备不在线");
+          // this.$message.warning("设备不在线,请在线后再操作");
+        } else if (res.data.code == 201) {
+          clearInterval(this.Interval);
+          this.$message.warning("其他用户在操作此设备,请稍后再操作");
+        } else {
+          this.$message.warning("安装出错, 请重新调试");
         }
       }).catch(err => {
         // console.log(err)
@@ -348,6 +359,7 @@ export default {
         } else if (newCount.type == "nff") {
           clearInterval(this.Interval);
           this.$message.warning("操作失败");
+          ElementUI.Loading.service({}).close()
         }
       }
     }

@@ -115,12 +115,12 @@
               @click="submitForm"
             >查询</el-button>
 
-            <el-button
+            <!-- <el-button
               :disabled="selectData.length>0?false:true"
               type="primary"
               style="background-color: #f0ad4e;border-color: #eea236;"
               @click="sureinfo"
-            >一键确认</el-button>
+            >一键确认</el-button> -->
           </div>
 
           <!-- <el-button @click="resetForm('form')">重置 / 刷新</el-button> -->
@@ -128,6 +128,22 @@
       </el-header>
       <!-- 中部 -->
       <el-main>
+        <div style="height: 37px;text-align: left;padding-left: 10px;box-sizing: border-box;">
+          <el-button
+            :disabled="selectData.length>0?false:true"
+            type="primary"
+            style="background-color: #f0ad4e;border-color: #eea236;"
+            @click="sureinfo"
+          >一键确认</el-button>
+
+          <el-button
+            :disabled="selectData.length>0?false:true"
+            type="primary"
+            style="background-color: #f56c6c;border-color: #f56c6c;"
+            @click="deletealarm"
+          >一键删除</el-button>
+        </div>
+
         <!-- 列表 -->
         <el-table
           :data="tableData"
@@ -135,6 +151,7 @@
           ref="table"
           style="width: 100%"
           empty-text="暂无报警信息"
+          :max-height="tableHeight"
           @selection-change="handleSelectionChange"
         >
           <el-table-column
@@ -331,6 +348,7 @@ export default {
         dateof: [],
         alarmtype: ""
       },
+      tableHeight: '735',
       // 获取所有设备
       options: [],
       // 列表数据
@@ -570,10 +588,53 @@ export default {
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消删除'
+          message: '已取消确认报警信息'
         });
       });
 
+    },
+
+    // 一键删除
+    deletealarm() {
+      this.$confirm('是否一键确认报警信息', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let arr = []
+
+        this.selectData.forEach(val => {
+          arr.push(val.id)
+        })
+        let username = localStorage.getItem("username");
+        let uid = localStorage.getItem(username + 'uid');
+        let type = "post";
+        let url = this.urlb + "/api3/EnergyData/delJingIdList";
+        let data = {
+          data: {
+            uid: uid,
+            // uid: localStorage.getItem('uid'),
+            jid: this.arrToString(arr), //报警id，列表的id
+            tle: this.alarmtle   //标识号，列表返回的tle
+          }
+        };
+        this.myAjax(type, url, data, res => {
+          // console.log(res)
+          if (res.data.code == 7010) {
+            this.$message({
+              showClose: true,
+              message: '删除报警消息成功',
+              type: 'success'
+            });
+            this.getList(1);
+          }
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     },
 
     // 编辑按钮
@@ -678,6 +739,7 @@ export default {
   },
   mounted() {
     this.$refs.table.$el.style.width = '99%'
+    this.tableHeight = window.innerHeight - this.$refs.table.$el.offsetTop - 70;
   },
   created() {
     // this.getList(1);

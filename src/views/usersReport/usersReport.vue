@@ -259,9 +259,10 @@
           >
 
             <el-table-column
-              prop="mid"
+              fixed
+              prop="name"
               show-overflow-tooltip
-              label="回路编号"
+              label="回路名称"
               align="center"
               min-width="100"
             ></el-table-column>
@@ -552,30 +553,41 @@ export default {
         data: {
           nid: this.choose.nid,
           start: new Date(this.form.startdate).getTime() / 1000,   //开始时间    必须是0时0分0秒
-          send: (new Date(this.form.startdate).getTime() + 1000 * 60 * 60 * 24 * 30) / 1000  //结束时间     必须是23时59分59秒
+          send: (new Date(this.form.startdate).getTime() + 1000 * 60 * 60 * 24 * 29) / 1000  //结束时间     必须是23时59分59秒
           // send: this.form.enddate / 1000 + 86399  //结束时间     必须是23时59分59秒
         }
       };
       this.myAjax(type, url, data, res => {
-        // console.log(res)
-        this.nenghaoday = res.data.maxDay.total
-        this.nenghaototal = res.data.total
+        if (res.data.code == 705) {
 
-        this.dayenergy = []
-        this.daytime = []
-        this.dayenergypaihang = []
-        this.daytimepaihang = []
+          if (res.data.maxDay) {
+            this.nenghaoday = res.data.maxDay.total
+          } else if (res.data.total) {
+            this.nenghaototal = res.data.total
+          }
 
-        res.data.table.forEach(val => {
-          this.dayenergy.push(val.dzz)
-          this.daytime.push(val.date)
-        })
-        res.data.xtable.forEach(val => {
-          this.dayenergypaihang.push(val.dzz)
-          this.daytimepaihang.push(val.date)
-        })
-        this.getdaynenghao()
-        this.getdaynenghaopaihang()
+          this.dayenergy = []
+          this.daytime = []
+          this.dayenergypaihang = []
+          this.daytimepaihang = []
+
+          res.data.table.forEach(val => {
+            this.dayenergy.push(val.dzz)
+            this.daytime.push(val.date)
+          })
+          res.data.xtable.forEach(val => {
+            this.dayenergypaihang.push(val.dzz)
+            this.daytimepaihang.push(val.date)
+          })
+          this.getdaynenghao()
+          this.getdaynenghaopaihang()
+        } else if (res.data.code == 706) {
+          this.$message({
+            showClose: true,
+            message: '当前月份没有数据',
+            type: 'warning'
+          });
+        }
       });
     },
 
@@ -587,7 +599,7 @@ export default {
         data: {
           nid: this.choose.nid,
           start: new Date(this.form.startdate).getTime() / 1000,   //开始时间    必须是0时0分0秒
-          send: (new Date(this.form.startdate).getTime() + 1000 * 60 * 60 * 24 * 30) / 1000  //结束时间     必须是23时59分59秒
+          send: (new Date(this.form.startdate).getTime() + 1000 * 60 * 60 * 24 * 29) / 1000  //结束时间     必须是23时59分59秒
         }
       };
       this.myAjax(type, url, data, res => {
@@ -1001,24 +1013,32 @@ export default {
     // 确定选择电箱
     submit() {
       if (this.checkedele.nid) {
-        let obj = JSON.stringify(this.checkedele)
-        // console.log(JSON.parse(obj))
-        this.choose = JSON.parse(obj)
-        let type = "post";
-        let url = this.urlb + "/api3/Rform/hwAgentSurvey";
-        let data = {
-          data: {
-            nid: this.choose.nid,
-          }
-        };
-        this.myAjax(type, url, data, res => {
-          // console.log(res)
-          this.electricbox = res.data.data
-        });
-        this.getList()
-        this.getThreshold()
-        this.getEnergy()
-        this.getalarmdata()
+        if (this.form.startdate) {
+          let obj = JSON.stringify(this.checkedele)
+          // console.log(JSON.parse(obj))
+          this.choose = JSON.parse(obj)
+          let type = "post";
+          let url = this.urlb + "/api3/Rform/hwAgentSurvey";
+          let data = {
+            data: {
+              nid: this.choose.nid,
+            }
+          };
+          this.myAjax(type, url, data, res => {
+            // console.log(res)
+            this.electricbox = res.data.data
+          });
+          this.getList()
+          this.getThreshold()
+          this.getEnergy()
+          this.getalarmdata()
+        } else {
+          this.$message({
+            showClose: true,
+            message: '请选择时间',
+            type: 'warning'
+          });
+        }
       } else {
         this.$message({
           showClose: true,
@@ -1056,6 +1076,7 @@ export default {
   }
   .el-table td,
   .el-table th {
+    color: #333 !important;
     font-size: 12px !important;
   }
   .el-table th {
@@ -1323,6 +1344,14 @@ export default {
       height: 300px;
       margin-bottom: 10px;
       border: 1px solid #eee;
+    }
+
+    .el-table__fixed {
+      height: 99% !important; //设置高优先，以覆盖内联样式
+      background: #ccc;
+    }
+    .el-table__fixed::before {
+      height: 0px !important;
     }
 
     .report-p4,

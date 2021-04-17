@@ -194,6 +194,7 @@ export default {
                 }
               }).then(res => {
                 // console.log(res)
+                localStorage.removeItem('getout')
                 if (res.data.code == 107) {
                   setTimeout(function () {
                     localStorage.setItem(res.data.data.uid + "token", res.data.token); // token
@@ -204,7 +205,7 @@ export default {
                     // localStorage.setItem("nick", res.data.data.nick); // 昵称
                     // localStorage.setItem("himg", res.data.data.himg); // 户头像
                     ElementUI.Loading.service({}).close();
-                    // _this.socket();
+                    _this.socket();
                     _this.$router.push("/home");
                   }, 1000);
                 } else if (res.data.code == 106) {

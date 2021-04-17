@@ -146,7 +146,7 @@
               </div>
               <div class="alarmbox3">
                 <span class="alarm">环比：</span>
-                <span>{{todayMonthYear.ben?((todayMonthYear.ben-todayMonthYear.wang)/todayMonthYear.wang*100).toFixed(2)+'%':'0%'}}</span>
+                <span>{{todayMonthYear.ben && todayMonthYear.wang !=0?((todayMonthYear.ben-todayMonthYear.wang)/todayMonthYear.wang*100).toFixed(2)+'%':'0%'}}</span>
               </div>
             </div>
             <!-- 本月报警 -->
@@ -164,7 +164,7 @@
               </div>
               <div class="alarmbox3">
                 <span class="alarm">环比：</span>
-                <span>{{todayMonthYear.ben?((todayMonthYear.ben-todayMonthYear.wang)/todayMonthYear.wang*100).toFixed(2)+'%':'0%'}}</span>
+                <span>{{todayMonthYear.ben && todayMonthYear.wang !=0?((todayMonthYear.ben-todayMonthYear.wang)/todayMonthYear.wang*100).toFixed(2)+'%':'0%'}}</span>
               </div>
             </div>
             <!-- 今年报警 -->
@@ -182,7 +182,7 @@
               </div>
               <div class="alarmbox3">
                 <span class="alarm">环比：</span>
-                <span>{{todayMonthYear.ben?((todayMonthYear.ben-todayMonthYear.wang)/todayMonthYear.wang*100).toFixed(2)+'%':'0%'}}</span>
+                <span>{{todayMonthYear.ben && todayMonthYear.wang !=0?((todayMonthYear.ben-todayMonthYear.wang)/todayMonthYear.wang*100).toFixed(2)+'%':'0%'}}</span>
               </div>
             </div>
           </div>
@@ -233,6 +233,7 @@
                 unlink-panels
                 value-format='yyMM'
                 popper-class="datetime"
+                @change="getmonth"
               >
               </el-date-picker>
             </el-form-item>
@@ -282,6 +283,7 @@
                 unlink-panels
                 value-format='yyyy'
                 popper-class="datetime"
+                @change="getyear"
               >
               </el-date-picker>
             </el-form-item>
@@ -334,11 +336,11 @@
                 <span
                   class="s1"
                   v-if="item.nid.length == 12"
-                >{{ '['+ getString1(item.nid) + item.mzname +']' }} - [{{ item.aa }} - {{ item.name }}] - [{{ item.desc }}] - [{{ item.time }}]</span>
+                >{{ '['+ getString1(item.nid) + item.n_name +']' }} - [{{ '线路' + item.mid }} - {{ item.name }}] - [{{ item.desc }}] - [{{ item.time }}]</span>
                 <span
                   class="s1"
                   v-else
-                >{{ '['+ getString1(hexCharCodeToStr(item.nid))+item.mzname +']' }} - [{{ item.aa }} - {{ item.name }}] - [{{ item.desc }}] - [{{ new Date(item.time*1000).Format('yy-MM-dd hh:mm:ss') }}]</span>
+                >{{ '['+ getString1(hexCharCodeToStr(item.nid))+item.n_name +']' }} - [{{ '线路' + item.mid }} - {{ item.name }}] - [{{ item.desc }}] - [{{ new Date(item.time*1000).Format('yy-MM-dd hh:mm:ss') }}]</span>
                 <p class="s2">{{ item.beizhu }}</p>
               </div>
             </template>
@@ -707,6 +709,9 @@ export default {
           this.$router.push({
             path: "/"
           });
+          // localStorage.setItem('getout', 'getout')
+          // this.socket();
+          this.closeSocket()
         })
         .catch(() => {
           this.$message({
@@ -840,6 +845,7 @@ export default {
           uid: uid, //必传 表示查询用户的日月年环比数据
           // uid: localStorage.getItem('uid'), //必传 表示查询用户的日月年环比数据
           type: this.tabalarmnum, //1 天  2月 3年
+          ctype: 0,
         }
       }
       this.myAjax(type, url, data, res => {
@@ -1835,13 +1841,13 @@ export default {
       // console.log(newCount,oldCount)
       if (newCount.type == "jing") {
         this.bjInfoData.unshift({
-          nid: newCount.nid, // 设备16进制
-          mzname: newCount.mzname, // 设备名称
-          jianzhu: newCount.jianzhu, // 线路名称
-          aa: "线路" + newCount.aa, // 线路
-          desc: newCount.desc, // 报警类型
-          beizhu: newCount.beizhu, // 报警提示文字
-          time: newCount.time // 时间
+          nid: newCount.data.nid, // 设备16进制
+          mzname: newCount.data.n_name, // 设备名称
+          jianzhu: newCount.data.jianzhu, // 线路名称
+          aa: "线路" + newCount.data.mid, // 线路
+          desc: newCount.data.desc, // 报警类型
+          beizhu: newCount.data.beizhu, // 报警提示文字
+          time: newCount.data.time // 时间
         });
         // this.$notify.warning({
         //   title:

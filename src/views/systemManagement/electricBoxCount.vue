@@ -501,10 +501,14 @@ export default {
       this.myAjax(type, url, data, res => {
         // console.log(res.data.data)
 
-        this.sureData1 = res.data.data
+        if (res.data.code == 705) {
+          this.$message.warning("您还未选择线路计数!");
+        } else {
+          this.sureData1 = res.data.data
 
-        for (let i = 0; i < this.sureData1.length; i++) {
-          this.sureData1[i].num = i + 1
+          for (let i = 0; i < this.sureData1.length; i++) {
+            this.sureData1[i].num = i + 1
+          }
         }
 
         // console.log(JSON.parse(res.data.data))
@@ -544,7 +548,7 @@ export default {
 
     // 点击 - 确定添加电箱计数
     determineAdd() {
-      this.$confirm("是否把已选择的电箱加入电箱计数?", "提示", {
+      this.$confirm("是否把已选择的线路加入线路计数?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
